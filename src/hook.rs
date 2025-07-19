@@ -101,7 +101,6 @@ unsafe extern "system" fn hook_proc(n_code: i32, w_param: WPARAM, l_param: LPARA
         return LRESULT(1)
     }
 
-
     unsafe { CallNextHookEx(None, n_code, w_param, l_param) }
 }
 
