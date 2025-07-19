@@ -9,3 +9,4 @@
 - Also need to add run on startup.
 
 ## Only works in Windows
+- Change CapsLock to f13 in the registry or something. Up to you.
