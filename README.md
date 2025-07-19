@@ -5,7 +5,7 @@
 - If other keys are pressed while f13 is held down, Esc would not be sent.
 - If you want to change the f13 key, its in key.rs.
 - To close the program, go to task manager and find better_esc.exe and end task.
-- Also does not work with Ctrl + Shift + something. It would just send Ctrl + Shift and Ctrl + something. Need to fix this.
+- Also does not work with Ctrl + Shift + something. It would just send Ctrl + Shift and Ctrl + something. Need to fix this. But if Shift is pressed first, Shift + Ctrl + something, it would work.
 - Also need to add run on startup. Done
 
 ## Only works in Windows
