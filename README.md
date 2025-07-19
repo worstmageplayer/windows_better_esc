@@ -6,7 +6,7 @@
 - If you want to change the f13 key, its in key.rs.
 - To close the program, go to task manager and find better_esc.exe and end task.
 - Also does not work with Ctrl + Shift + something. It would just send Ctrl + Shift and Ctrl + something. Need to fix this.
-- Also need to add run on startup.
+- Also need to add run on startup. Done
 
 ## Only works in Windows
 - Change Caps Lock to f13 in the registry or something. Up to you.
