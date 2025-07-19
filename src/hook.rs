@@ -90,7 +90,7 @@ unsafe extern "system" fn hook_proc(n_code: i32, w_param: WPARAM, l_param: LPARA
             let _ = sender.send(KeyAction::KeyHandler(is_key_down));
         }
         // key_handler(is_key_down);
-        return unsafe { CallNextHookEx(None, n_code, w_param, l_param) };
+        return LRESULT(1);
     }
 
     if KEY_STATE.load(SeqCst) && is_key_down {
