@@ -36,80 +36,76 @@ pub fn better_esc(vk_code: u32) {
 }
 
 fn send_ctrl_combo(vk_code: u32) {
-    unsafe {
-        let inputs = &[
-            INPUT {
-                r#type: INPUT_KEYBOARD,
-                Anonymous: INPUT_0 {
-                    ki: KEYBDINPUT {
-                        wVk: VK_LCONTROL,
-                        ..Default::default()
-                    }
-                },
+    let inputs = &[
+        INPUT {
+            r#type: INPUT_KEYBOARD,
+            Anonymous: INPUT_0 {
+                ki: KEYBDINPUT {
+                    wVk: VK_LCONTROL,
+                    ..Default::default()
+                }
             },
-            INPUT {
-                r#type: INPUT_KEYBOARD,
-                Anonymous: INPUT_0 {
-                    ki: KEYBDINPUT {
-                        wVk: VIRTUAL_KEY(vk_code as u16),
-                        ..Default::default()
-                    }
-                },
+        },
+        INPUT {
+            r#type: INPUT_KEYBOARD,
+            Anonymous: INPUT_0 {
+                ki: KEYBDINPUT {
+                    wVk: VIRTUAL_KEY(vk_code as u16),
+                    ..Default::default()
+                }
             },
-            INPUT {
-                r#type: INPUT_KEYBOARD,
-                Anonymous: INPUT_0 {
-                    ki: KEYBDINPUT {
-                        wVk: VIRTUAL_KEY(vk_code as u16),
-                        dwFlags: KEYEVENTF_KEYUP,
-                        ..Default::default()
-                    }
-                },
+        },
+        INPUT {
+            r#type: INPUT_KEYBOARD,
+            Anonymous: INPUT_0 {
+                ki: KEYBDINPUT {
+                    wVk: VIRTUAL_KEY(vk_code as u16),
+                    dwFlags: KEYEVENTF_KEYUP,
+                    ..Default::default()
+                }
             },
-            INPUT {
-                r#type: INPUT_KEYBOARD,
-                Anonymous: INPUT_0 {
-                    ki: KEYBDINPUT {
-                        wVk: VK_LCONTROL,
-                        dwFlags: KEYEVENTF_KEYUP,
-                        ..Default::default()
-                    }
-                },
+        },
+        INPUT {
+            r#type: INPUT_KEYBOARD,
+            Anonymous: INPUT_0 {
+                ki: KEYBDINPUT {
+                    wVk: VK_LCONTROL,
+                    dwFlags: KEYEVENTF_KEYUP,
+                    ..Default::default()
+                }
             },
-            ];
-        let sent = SendInput(inputs, size_of::<INPUT>() as i32);
-        if sent != inputs.len() as u32 {
-            eprintln!("SendInput failed for Ctrl+{}: sent {} of {}", vk_code, sent, inputs.len());
-        }
+        },
+        ];
+    let sent = unsafe { SendInput(inputs, size_of::<INPUT>() as i32) };
+    if sent != inputs.len() as u32 {
+        eprintln!("SendInput failed for Ctrl+{}: sent {} of {}", vk_code, sent, inputs.len());
     }
 }
 
 pub fn send_esc() {
-    unsafe {
-        let inputs = &[
-            INPUT {
-                r#type: INPUT_KEYBOARD,
-                Anonymous: INPUT_0 {
-                    ki: KEYBDINPUT {
-                        wVk: VK_ESCAPE,
-                        ..Default::default()
-                    }
-                },
+    let inputs = &[
+        INPUT {
+            r#type: INPUT_KEYBOARD,
+            Anonymous: INPUT_0 {
+                ki: KEYBDINPUT {
+                    wVk: VK_ESCAPE,
+                    ..Default::default()
+                }
             },
-            INPUT {
-                r#type: INPUT_KEYBOARD,
-                Anonymous: INPUT_0 {
-                    ki: KEYBDINPUT {
-                        wVk: VK_ESCAPE,
-                        dwFlags: KEYEVENTF_KEYUP,
-                        ..Default::default()
-                    }
-                },
+        },
+        INPUT {
+            r#type: INPUT_KEYBOARD,
+            Anonymous: INPUT_0 {
+                ki: KEYBDINPUT {
+                    wVk: VK_ESCAPE,
+                    dwFlags: KEYEVENTF_KEYUP,
+                    ..Default::default()
+                }
             },
-        ];
-        let sent = SendInput(inputs, size_of::<INPUT>() as i32);
-        if sent != inputs.len() as u32 {
-            eprintln!("SendInput failed for Esc: sent {} of {}", sent, inputs.len());
-        }
+        },
+    ];
+    let sent = unsafe { SendInput(inputs, size_of::<INPUT>() as i32) };
+    if sent != inputs.len() as u32 {
+        eprintln!("SendInput failed for Esc: sent {} of {}", sent, inputs.len());
     }
 }

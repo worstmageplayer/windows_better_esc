@@ -39,6 +39,8 @@ use std::{
         OnceLock,
     },
     thread,
+    ffi::c_void,
+    ptr::null_mut,
 };
 use crate::key::{
     better_esc, key_handler, KEY, KEY_STATE
@@ -49,7 +51,7 @@ pub enum KeyAction {
     BetterEsc(u32),
 }
 
-static HOOK: AtomicPtr<std::ffi::c_void> = AtomicPtr::new(std::ptr::null_mut());
+static HOOK: AtomicPtr<c_void> = AtomicPtr::new(null_mut());
 static SENDER: OnceLock<Sender<KeyAction>> = OnceLock::new();
 
 pub fn init_worker() {
@@ -130,6 +132,7 @@ pub extern "system" fn start_hook() {
 pub extern "system" fn stop_hook() {
     let hook_ptr = HOOK.swap(std::ptr::null_mut(), SeqCst);
     if !hook_ptr.is_null() {
-        unsafe { UnhookWindowsHookEx(HHOOK(hook_ptr)) }.unwrap_or_else(|e| eprintln!("UnhookWindowsHookEx failed: {e}"));
+        unsafe { UnhookWindowsHookEx(HHOOK(hook_ptr)) }
+        .unwrap_or_else(|e| eprintln!("UnhookWindowsHookEx failed: {e}"));
     }
 }
