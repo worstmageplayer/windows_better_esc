@@ -9,4 +9,5 @@
 - Also need to add run on startup.
 
 ## Only works in Windows
-- Change CapsLock to f13 in the registry or something. Up to you.
+- Change Caps Lock to f13 in the registry or something. Up to you.
+- its 0x64, 64 00 3A 00. 3A is Caps Lock
