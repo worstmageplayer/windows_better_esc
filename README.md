@@ -1,13 +1,16 @@
-# Windows Better Esc
+# Windows Better Key
 - Uses the f13 key.
-- Press and release to Esc.
-- Press, hold and press other keys to Ctrl + other key.
-- If other keys are pressed while f13 is held down, Esc would not be sent.
-- If you want to change the f13 key, its in key.rs.
-- To close the program, go to task manager and find better_esc.exe and end task.
-- Also does not work with Ctrl + Shift + something. It would just send Ctrl + Shift and Ctrl + something. Need to fix this. But if Shift is pressed first, Shift + Ctrl + something, it would work.
-- Also need to add run on startup. Done
-
+- When the f13 key is pressed, it checks for other key presses.
+- If other keys are pressed while the f13 key is held down, it would send Ctrl + the other key.
+- If no other keys are pressed while the f13 key is held down and the f13 key is released, it would send Esc.
+- Does not work with f13(Ctrl) + Shift + _. It would just send Ctrl + Shift and Ctrl + _.
+- However, Shift + f13(Ctrl) + _ does work.
 ## Only works in Windows
-- Change Caps Lock to f13 in the registry or something. Up to you.
-- its 0x64, 64 00 3A 00. 3A is Caps Lock
+
+### Remap Caps Lock to F13
+1. Press `Win + R`, type `regedit`, and press Enter.
+2. Navigate to: `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout`.
+3. Right-click and choose: `New > Binary Value`, name it: `Scancode Map`.
+4. Set its value to: `00 00 00 00 00 00 00 00
+02 00 00 00 64 00 3A 00
+00 00 00 00`

@@ -86,6 +86,7 @@ unsafe extern "system" fn hook_proc(n_code: i32, w_param: WPARAM, l_param: LPARA
         _ => return unsafe { CallNextHookEx(None, n_code, w_param, l_param) }
     };
 
+    // f13 pressed or released
     if vk_code == KEY {
         KEY_STATE.store(is_key_down, SeqCst);
         if let Some(sender) = SENDER.get() {
@@ -95,6 +96,7 @@ unsafe extern "system" fn hook_proc(n_code: i32, w_param: WPARAM, l_param: LPARA
         return LRESULT(1);
     }
 
+    // f13 is held down && another key is pressed
     if KEY_STATE.load(SeqCst) && is_key_down {
         if let Some(sender) = SENDER.get() {
             let _ = sender.send(KeyAction::BetterEsc(vk_code));
